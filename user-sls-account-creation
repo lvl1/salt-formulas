@@ -1,0 +1,19 @@
+minionuser:
+  user.present:
+    - fullname: Minion User
+    - shell: /bin/bash
+    - home: /home/minionuser
+    - groups:
+      - sudo
+/home/minionuser/.ssh:
+  file.directory:
+    - user: minionuser
+    - group: minionuser
+    - mode: 700
+/home/minionuser/.ssh/authorized_keys:
+  file:
+    - managed
+    - user: minionuser
+    - group: minionuser
+    - source: salt://keys/minion_key
+    - mode: 600
