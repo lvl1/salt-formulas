@@ -9,7 +9,7 @@ def build_site(name, output="/srv/www"):
 
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
 
-    current_state = __salt__['pelican.current_state'](name)
+    current_state = __salt__['pelican.current_state']()
 
     if __opts__['test'] == True:
         ret['comment'] = 'Markdown files from "{0}" will be converted to HTML and put in "{1}"'.format(name,output)
@@ -21,7 +21,7 @@ def build_site(name, output="/srv/www"):
 
         return ret
 
-    new_state = __salt__['pelican.generate'](output,path)
+    new_state = __salt__['pelican.generate'](output,name)
 
     ret['comment'] = 'Static site generated from "{0}".'.format(name)
 
