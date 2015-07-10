@@ -1,5 +1,4 @@
 import salt.exceptions
-import subprocess
 
 def build_site(name, output="/srv/www"):
     # /srv/salt/_states/pelican.py
