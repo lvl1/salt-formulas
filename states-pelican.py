@@ -9,9 +9,7 @@ def build_site(name, output="/srv/www"):
 
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
 
-    # I don't know how to make this work. But it's cool.
-    #current_state = __salt__['pelican.current_state'](name)
-    current_state = "cool"
+    current_state = __salt__['pelican.current_state'](name)
 
     if __opts__['test'] == True:
         ret['comment'] = 'Markdown files from "{0}" will be converted to HTML and put in "{1}"'.format(name,output)
@@ -23,13 +21,13 @@ def build_site(name, output="/srv/www"):
 
         return ret
 
-    subprocess.call(['pelican', '-o', output, name])
+    new_state = __salt__['pelican.generate'](output,path)
 
     ret['comment'] = 'Static site generated from "{0}".'.format(name)
 
     ret['changes'] = {
         'old': current_state,
-        'new': 'Whoopee!',
+        'new': new_state,
     }
 
     ret['result'] = True
